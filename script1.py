@@ -14,8 +14,8 @@ df = pd.read_excel(sheet_url, sheet_name=sheet_name)
 
 # Initialize the WebDriver with existing session
 options = Options()
-options.add_argument("user-data-dir=/path/to/your/chrome/profile")  # Change this to your Chrome profile path
-service = Service('/path/to/chromedriver')  # Update this path to your WebDriver path
+options.add_argument("user-data-dir=/workspace/chrome-profile")  # Change this to your Chrome profile path in Gitpod
+service = Service('/usr/local/bin/chromedriver')  # Path to ChromeDriver in Gitpod
 driver = webdriver.Chrome(service=service, options=options)
 
 # Function to check connection status and send requests/messages
