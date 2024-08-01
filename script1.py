@@ -1,3 +1,4 @@
+import os
 import time
 import pandas as pd
 from selenium import webdriver
@@ -7,10 +8,16 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# Load the Google Sheet
-sheet_url = "https://docs.google.com/spreadsheets/d/1ITfeivRzYOc3jd3_yKOI8py0NEAXhhsve86n8B7scEs/edit?usp=sharing"
-sheet_name = "Sheet1"  # Change this to your actual sheet name
-df = pd.read_excel(sheet_url, sheet_name=sheet_name)
+# Ensure the file is in the current working directory
+current_dir = os.getcwd()
+excel_file_path = os.path.join(current_dir, "LinkedinAutomation.xlsx")
+
+# Load the Excel file
+try:
+    df = pd.read_excel(excel_file_path, sheet_name="Sheet1", engine='openpyxl')
+except Exception as e:
+    print(f"Error reading the Excel file: {e}")
+    exit()
 
 # Initialize the WebDriver with existing session
 options = Options()
@@ -46,7 +53,7 @@ def process_linkedin_profiles(driver, profile_urls):
         except Exception as e:
             print(f"Could not process {url}: {e}")
 
-# Process each LinkedIn profile from the Google Sheet
+# Process each LinkedIn profile from the Excel file
 profile_urls = df['LinkedIn URL'].tolist()
 process_linkedin_profiles(driver, profile_urls)
 
