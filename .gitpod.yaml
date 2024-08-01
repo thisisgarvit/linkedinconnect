@@ -1,0 +1,5 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - command: python3 linkedin_automation.py
